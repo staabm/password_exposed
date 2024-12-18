@@ -7,6 +7,7 @@ use DivineOmega\PasswordExposed\Enums\PasswordStatus;
 use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class PasswordExposedTest extends TestCase
 {
