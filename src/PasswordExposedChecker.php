@@ -10,6 +10,7 @@ use ParagonIE\Certainty\Bundle;
 use ParagonIE\Certainty\Fetch;
 use ParagonIE\Certainty\RemoteFetch;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
@@ -230,7 +231,7 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
                     'MoavD16iqe9-QVhIy-ewD4DMp0QRH-drKfwhfeDAUG0='
                 )
                 ->getLatestBundle();
-        } catch (ConnectException $ex) {
+        } catch (ClientExceptionInterface $ex) {
             // Fallback to the main server.
             return (new RemoteFetch($ourCertaintyDataDir))->getLatestBundle();
         }
