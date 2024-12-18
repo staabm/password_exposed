@@ -69,7 +69,6 @@ abstract class AbstractPasswordExposedChecker implements PasswordExposedCheckerI
                     $cache->save($cacheItem);
                 }
             } catch (ClientExceptionInterface $e) {
-                var_dump($e->getMessage());
             }
         }
 
