@@ -41,14 +41,7 @@ class CustomInjectionsTest extends TestCase
         $pemFiles = glob(__DIR__.'/../../vendor/paragonie/certainty/data/*.pem');
         $bundle = new Bundle(end($pemFiles));
 
-        $cache = new CacheItemPool();
-        $cache->changeConfig(
-            [
-                'cacheDirectory'  => __DIR__.'/../../cache/dofilecache/',
-                'gzipCompression' => false,
-            ]
-        );
-
+        $cache = new FilesystemAdapter("password-exposed-cache");
         $passwordExposedChecker = new PasswordExposedChecker(null, $cache);
         $passwordExposedChecker->setBundle($bundle);
 
