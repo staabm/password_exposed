@@ -7,6 +7,7 @@ use DivineOmega\PasswordExposed\Enums\PasswordStatus;
 use DivineOmega\PasswordExposed\PasswordExposedChecker;
 use Faker\Factory;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
 
 class PasswordExposedByHashTest extends TestCase
 {
@@ -15,13 +16,7 @@ class PasswordExposedByHashTest extends TestCase
 
     protected function setUp(): void
     {
-        $cache = new CacheItemPool();
-        $cache->changeConfig(
-            [
-                'cacheDirectory'  => __DIR__.'/../../cache/dofilecache/',
-                'gzipCompression' => false,
-            ]
-        );
+        $cache = new FilesystemAdapter(__FILE__);
         $this->checker = new PasswordExposedChecker(null, $cache);
     }
 

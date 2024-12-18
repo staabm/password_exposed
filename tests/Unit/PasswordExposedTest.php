@@ -15,13 +15,7 @@ class PasswordExposedTest extends TestCase
 
     protected function setUp(): void
     {
-        $cache = new CacheItemPool();
-        $cache->changeConfig(
-            [
-                'cacheDirectory'  => __DIR__.'/../../cache/dofilecache/',
-                'gzipCompression' => false,
-            ]
-        );
+        $cache = new FilesystemAdapter(__FILE__);
         $this->checker = new PasswordExposedChecker(null, $cache);
     }
 
