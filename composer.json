@@ -23,7 +23,6 @@
         "php": "^7.4||^8.0",
         "psr/http-client": "^1.0",
         "symfony/http-client": "^5.4 || ^6 || ^7.0",
-        "nyholm/psr7": "^1.0",
         "php-http/discovery": "^1.0",
         "paragonie/certainty": "^2.9",
         "symfony/cache": "^4.2.12",
