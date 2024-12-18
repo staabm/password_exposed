@@ -13,6 +13,8 @@ use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Component\HttpClient\Psr18Client;
 
@@ -116,19 +118,9 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
         return $this->cacheLifeTime;
     }
 
-    /**
-     * @return CacheItemPool
-     */
     protected function createCache(): CacheItemPoolInterface
     {
-        $cache = new CacheItemPool();
-        $cache->changeConfig(
-            [
-                'cacheDirectory' => sys_get_temp_dir().'/password-exposed-cache/',
-            ]
-        );
-
-        return $cache;
+        return new FilesystemAdapter("password-exposed");
     }
 
     /**
