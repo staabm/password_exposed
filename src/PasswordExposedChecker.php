@@ -10,9 +10,14 @@ use ParagonIE\Certainty\Bundle;
 use ParagonIE\Certainty\Fetch;
 use ParagonIE\Certainty\RemoteFetch;
 use Psr\Cache\CacheItemPoolInterface;
+use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Psr16Cache;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\Psr18Client;
 
 /**
  * Class PasswordExposedChecker.
@@ -84,10 +89,10 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
 
         $bundle = $this->getBundle();
         if ($bundle !== null) {
-            $options['verify'] = $bundle->getFilePath();
+            $options['cafile'] = $bundle->getFilePath();
         }
 
-        return new Client($options);
+        return new Psr18Client(HttpClient::create($options));
     }
 
     /**
@@ -114,19 +119,9 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
         return $this->cacheLifeTime;
     }
 
-    /**
-     * @return CacheItemPool
-     */
     protected function createCache(): CacheItemPoolInterface
     {
-        $cache = new CacheItemPool();
-        $cache->changeConfig(
-            [
-                'cacheDirectory' => sys_get_temp_dir().'/password-exposed-cache/',
-            ]
-        );
-
-        return $cache;
+        return new FilesystemAdapter("password-exposed");
     }
 
     /**
@@ -236,7 +231,7 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
                     'MoavD16iqe9-QVhIy-ewD4DMp0QRH-drKfwhfeDAUG0='
                 )
                 ->getLatestBundle();
-        } catch (ConnectException $ex) {
+        } catch (ClientExceptionInterface $ex) {
             // Fallback to the main server.
             return (new RemoteFetch($ourCertaintyDataDir))->getLatestBundle();
         }
