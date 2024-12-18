@@ -16,7 +16,7 @@ class PasswordExposedByHashTest extends TestCase
 
     protected function setUp(): void
     {
-        $cache = new FilesystemAdapter(__FILE__);
+        $cache = new FilesystemAdapter("password-exposed-cache");
         $this->checker = new PasswordExposedChecker(null, $cache);
     }
 
