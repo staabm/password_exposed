@@ -24,7 +24,7 @@ jobs:
             php-version: 7.4
             coverage: none
 
-      -   name: Lint PHP
+      -   name: Analyze dependencies
           run: |
             composer require --dev shipmonk/composer-dependency-analyser
             vendor/bin/composer-dependency-analyser
