@@ -13,6 +13,8 @@ use Psr\Cache\CacheItemPoolInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\UriFactoryInterface;
+use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\HttpClient\Psr18Client;
 
 /**
  * Class PasswordExposedChecker.
@@ -84,10 +86,10 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
 
         $bundle = $this->getBundle();
         if ($bundle !== null) {
-            $options['verify'] = $bundle->getFilePath();
+         //   $options['cafile'] = $bundle->getFilePath();
         }
 
-        return new Client($options);
+        return new Psr18Client(HttpClient::create($options));
     }
 
     /**
