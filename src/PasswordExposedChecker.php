@@ -86,7 +86,7 @@ class PasswordExposedChecker extends AbstractPasswordExposedChecker
 
         $bundle = $this->getBundle();
         if ($bundle !== null) {
-         //   $options['cafile'] = $bundle->getFilePath();
+            $options['cafile'] = $bundle->getFilePath();
         }
 
         return new Psr18Client(HttpClient::create($options));
