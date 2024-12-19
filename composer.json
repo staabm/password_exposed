@@ -13,9 +13,9 @@
         "php": "^7.4||^8.0",
         "psr/http-client": "^1.0",
         "symfony/http-client": "^5.4 || ^6 || ^7.0",
+        "symfony/cache": "^5.4 || ^6 || ^7.0",
         "php-http/discovery": "^1.0",
         "paragonie/certainty": "^2.9",
-        "symfony/cache": "^4.2.12",
         "psr/cache": "^1 || ^2 || ^3",
         "psr/http-message": "^2.0",
         "psr/http-factory": "^1.1"
